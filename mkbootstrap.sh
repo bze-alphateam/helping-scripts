@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-## Create vidulum bootstrap ##
+## Create BZEdge bootstrap ##
 
 #drop to root dir
 cd ~
@@ -20,9 +20,9 @@ fi
 mkdir bootstrap && cd bootstrap
 
 
-cp -r ~/.vidulum/blocks .
-cp -r ~/.vidulum/chainstate .
-cp ~/.vidulum/peers.dat .
+cp -r ~/.bzedge/blocks .
+cp -r ~/.bzedge/chainstate .
+cp ~/.bzedge/peers.dat .
 
 cd ~
 

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # Download and Run
-# REMOVE ANY EXISTING vnode-install.sh SCRIPTS  ( rm vnode-install.sh )
-# wget https://raw.githubusercontent.com/vidulum/vidulum-scripts/master/vnode-install.sh
-# chmod u+x vnode-install.sh
-# ./vnode-install.sh
+# REMOVE ANY EXISTING daemon-install.sh SCRIPTS  ( rm daemon-install.sh )
+# wget https://raw.githubusercontent.com/bze-alphateam/useful-scripts/master/daemon-install.sh
+# chmod u+x daemon-install.sh
+# ./daemon-install.sh
 #
 echo " "
 echo "    #################################   "
-echo "    ## Vidulum Node Install Script ##   "
+echo "    ## BZEdge Node Install Script ##   "
 echo "    #################################   "
 echo " "
 echo "-------------------------------------------"
@@ -29,12 +29,12 @@ if [[ $MN =~ [yY](es)* ]]; then
 fi
 
 echo "Would you like to download a bootstrap? (yes or no)"
-read -i "yes" BS 
+read -i "yes" BS
 
 if [[ $BS =~ [yY](es)* ]]; then
         echo " "
 	echo "Downloading Bootstrap for a V-Node"
-        echo " " 
+        echo " "
 	wget https://downloads.vidulum.app/bootstrap.zip
 else
         echo " "
@@ -74,30 +74,30 @@ echo " "
 echo "----------------------------------------------"
 echo "| The script will check for important config |"
 echo "| files and back them up in your home folder |"
-echo "| temporaily while the rest of .vidulum      |"                          
+echo "| temporaily while the rest of .bzedge      |"
 echo "| is deleted so the bootstrap works as it    |"
 echo "| should, and then they are moved back after |"
 echo "| the bootstrap files are done installing    |"
-echo "| Specifically;                              |"  
-echo "| wallet.dat, vidulum.conf, masternode.conf  |"
+echo "| Specifically;                              |"
+echo "| wallet.dat, bzedge.conf, masternode.conf  |"
 echo "----------------------------------------------"
 echo " "
 
-if [ -d ~/.vidulum ]; then
-    if [ -d ~/.vidulum/blocks ]; then
-      rm -r .vidulum/blocks
+if [ -d ~/.bzedge ]; then
+    if [ -d ~/.bzedge/blocks ]; then
+      rm -r .bzedge/blocks
     fi
-    if [ -d ~/.vidulum/chainstate ]; then
-      rm -r .vidulum/chainstate
+    if [ -d ~/.bzedge/chainstate ]; then
+      rm -r .bzedge/chainstate
     fi
 else
-  mkdir .vidulum
+  mkdir .bzedge
 fi
 
 #Move Blocks into data directory
 if [ -d ~/bootstrap/blocks ] && [ -d ~/bootstrap/chainstate ]; then
-  mv bootstrap/blocks ~/.vidulum/blocks
-  mv bootstrap/chainstate ~/.vidulum/chainstate
+  mv bootstrap/blocks ~/.bzedge/blocks
+  mv bootstrap/chainstate ~/.bzedge/chainstate
 else
     echo "No bootstrap files to install"
 fi
@@ -187,7 +187,7 @@ echo "--------------------------------------------"
 
 else
 
-echo "--------------------------------------"    
+echo "--------------------------------------"
 echo "| Downloading Groth16 Sapling params |"
 echo "--------------------------------------"
 
@@ -199,7 +199,7 @@ echo " "
 
 if [ -e ~/.vidulum-params/sapling-spend.params ]; then
 
-echo "-----------------------------------------"    
+echo "-----------------------------------------"
 echo "| Sapling-spend params already present! |"
 echo "-----------------------------------------"
 
@@ -217,13 +217,13 @@ echo " "
 
 if [ -e ~/.vidulum-params/sapling-output.params ]; then
 
-echo "------------------------------------------"    
+echo "------------------------------------------"
 echo "| Sapling-output params already present! |"
 echo "------------------------------------------"
 
 else
 
-echo "-------------------------------------"    
+echo "-------------------------------------"
 echo "| Downloading Sapling-output params |"
 echo "-------------------------------------"
 
@@ -234,8 +234,8 @@ fi
 echo " "
 
 if [[ $MN =~ [yY](es)* ]]; then
-    
-    configFile=".vidulum/vidulum.conf"
+
+    configFile=".bzedge/bzedge.conf"
 
     touch $configFile
 
@@ -253,8 +253,8 @@ if [[ $MN =~ [yY](es)* ]]; then
     echo "masternode=1" >> $configFile
 
 elif [[ $MN =~ [nN](o)* ]]; then
-    configFile=".vidulum/vidulum.conf"
-    
+    configFile=".bzedge/bzedge.conf"
+
     touch $configFile
 
     echo "txindex=1" >> $configFile
@@ -263,22 +263,22 @@ elif [[ $MN =~ [nN](o)* ]]; then
     echo "rpcuser="$rpcuser >> $configFile
     rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
     echo "rpcpassword="$rpcpassword >> $configFile
-    
-else 
-	echo "vidulum.conf must be configured properly - stopping script" && exit 1
+
+else
+	echo "bzedge.conf must be configured properly - stopping script" && exit 1
 fi
 
 echo " "
 echo "|-----------------------------------|"
-echo "| Downloading and unpacking Vidulum |"
+echo "| Downloading and unpacking BZEdge |"
 echo "| binaries if they are not present. |"
 echo "|-----------------------------------|"
 echo " "
 
-if [ -e vidulumd ] && [ -e vidulum-cli ] && [ -e vidulum-tx ]; then
+if [ -e bzedged ] && [ -e bzedge-cli ] && [ -e bzedge-tx ]; then
 
 echo "---------------------------------"
-echo "| Vidulum is already installed! |"
+echo "| BZEdge is already installed! |"
 echo "---------------------------------"
 
 else
@@ -295,13 +295,13 @@ unzip VDL-Linux.zip
 
 rm VDL-Linux.zip
 
-mv VDL-Linux/vidulum-cli .
-mv VDL-Linux/vidulumd .
-mv VDL-Linux/vidulum-tx .
+mv VDL-Linux/bzedge-cli .
+mv VDL-Linux/bzedged .
+mv VDL-Linux/bzedge-tx .
 
-chmod u+x vidulum-cli
-chmod u+x vidulumd
-chmod u+x vidulum-tx
+chmod u+x bzedge-cli
+chmod u+x bzedged
+chmod u+x bzedge-tx
 
 rm -r VDL-Linux
 
@@ -312,11 +312,11 @@ echo "|------------------------------------------|"
 echo "| Ok, it looks like everything is complete!|"
 echo "| The daemon is running in the background. |"
 echo "| To check on syncing status, type:        |"
-echo "| ./vidulum-cli getinfo                    |"
+echo "| ./bzedge-cli getinfo                    |"
 echo "|                                          |"
 echo "| When syncing is complete, start the      |"
 echo "| mastenode from the GUI wallet, then type:|"
-echo "| ./vidulum-cli masternodedebug            |"
+echo "| ./bzedge-cli masternodedebug            |"
 echo "|                                          |"
 echo "| If V-Node has been successfully started  |"
 echo "| the output will state:                   |"
@@ -324,4 +324,4 @@ echo "| Masternode successfully started          |"
 echo "|------------------------------------------|"
 echo " "
 
-./vidulumd -daemon
+./bzedged -daemon

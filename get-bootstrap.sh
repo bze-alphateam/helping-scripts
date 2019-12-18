@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Download and Run
-# wget https://raw.githubusercontent.com/vidulum/vidulum-scripts/master/get-bootstrap.sh
+# wget https://raw.githubusercontent.com/bze-alphateam/useful-scripts/master/get-bootstrap.sh
 # chmod u+x get-bootstrap.sh
 # ./get-bootstrap.sh
 
 ###################################
-## Grab latest vidulum bootstrap ##
+## Grab latest BZEdge bootstrap ##
 ###################################
 
 #Function to check for running process
@@ -20,9 +20,9 @@ echo " "
 echo " "
 echo "  ---------------- READ THIS ----------------  "
 echo " "
-echo "      Grabbing current Vidulum bootstrap       "
+echo "      Grabbing current BZEdge bootstrap       "
 echo " "
-echo "To do this right we need to delete your vidulum files"
+echo "To do this right we need to delete your BZEdge files"
 echo " "
 echo "We will leave your wallet.dat and config files alone"
 echo " "
@@ -35,33 +35,33 @@ if [ "$ALLOW" == "no" ] || [ "$ALLOW" == "n" ]; then
 fi
 
 
-#Check if the vidulum daemon is currently running
+#Check if the BZEdge daemon is currently running
 
 echo " "
 echo " "
-echo "Checking for a running Vidulum daemon"
-check_process "vidulumd"
-[ $? -eq 1 ] && echo "Safely stopping Vidulum daemon" && `cd ~` && `./vidulum-cli stop`
+echo "Checking for a running BZEdge daemon"
+check_process "bzedged"
+[ $? -eq 1 ] && echo "Safely stopping BZEdge daemon" && `cd ~` && `./bzedge-cli stop`
 
 echo " "
 echo " "
 echo "Discount Double Check"
-check_process "vidulumd"
-[ $? -eq 1 ] && echo "----ISSUE Vidulum daemon still running, you need to close it first" && exit 1
+check_process "bzedged"
+[ $? -eq 1 ] && echo "----ISSUE BZEdge daemon still running, you need to close it first" && exit 1
 
 
-if [ -d ~/.vidulum ]
+if [ -d ~/.bzedge ]
 
 then
 
-cp .vidulum/wallet.dat .
-cp .vidulum/vidulum.conf .
-cp .vidulum/masternode.conf .
-sudo rm -r .vidulum
-mkdir .vidulum
-mv wallet.dat .vidulum/wallet.dat
-mv vidulum.conf .vidulum/vidulum.conf
-mv masternode.conf .vidulum/masternode.conf
+cp .bzedge/wallet.dat .
+cp .bzedge/bzedge.conf .
+cp .bzedge/masternode.conf .
+sudo rm -r .bzedge
+mkdir .bzedge
+mv wallet.dat .bzedge/wallet.dat
+mv bzedge.conf .bzedge/bzedge.conf
+mv masternode.conf .bzedge/masternode.conf
 
 echo " "
 echo " "
@@ -76,7 +76,7 @@ fi
 echo " "
 echo " "
 echo "-----------------------------------------"
-echo "| Downloading current Vidulum bootstrap |"
+echo "| Downloading current BZEdge bootstrap |"
 echo "-----------------------------------------"
 
 wget https://downloads.vidulum.app/bootstrap.zip
@@ -98,9 +98,9 @@ echo " "
 echo "----------------------------------------------"
 echo "| Putting new needles into the new hay stack |"
 echo "----------------------------------------------"
-mv bootstrap/blocks ~/.vidulum/blocks
-mv bootstrap/chainstate ~/.vidulum/chainstate
-mv bootstrap/peers.dat ~/.vidulum/peers.dat
+mv bootstrap/blocks ~/.bzedge/blocks
+mv bootstrap/chainstate ~/.bzedge/chainstate
+mv bootstrap/peers.dat ~/.bzedge/peers.dat
 
 #Clean up
 echo " "
@@ -114,5 +114,5 @@ rm -r bootstrap
 echo " "
 echo " "
 echo "-----------------------------------------------------"
-echo "| You can now start your vidulum daemon  ./vidulumd |"
+echo "| You can now start your BZEdge daemon  ./bzedged |"
 echo "-----------------------------------------------------"

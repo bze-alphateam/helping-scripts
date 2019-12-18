@@ -1,28 +1,27 @@
 #!/bin/bash
 
 # Download and Run
-# wget https://raw.githubusercontent.com/vidulum/vidulum-scripts/master/vrs-enforce.sh
-# chmod u+x vrs-enforce.sh
-# ./vrs-enforce.sh
+# wget https://raw.githubusercontent.com/bze-alphateam/useful-scripts/master/daemon-upgrade.sh
+# chmod u+x daemon-upgrade.sh
+# ./daemon-upgrade.sh
 
 #Upgrade Node to current release
 sudo apt install unzip
 
 echo " "
 echo " "
-echo "Upgrading Vidulum daemon and client"
-echo "V I D U L U M   B L O C K C H A I N"
+echo "Upgrading BZEdge daemon and client"
 
 echo " "
-./vidulum-cli stop
+./bzedge-cli stop
 
 echo " "
 echo " "
 echo "Waiting for 15 seconds while daemon stops"
 sleep 15
 
-rm vidulumd
-rm vidulum-cli
+rm bzedged
+rm bzedge-cli
 
 echo " "
 
@@ -66,17 +65,17 @@ unzip VDL-Linux.zip
 
 rm VDL-Linux.zip
 
-mv VDL-Linux/vidulum-cli .
-mv VDL-Linux/vidulumd .
-mv VDL-Linux/vidulum-tx .
+mv VDL-Linux/bzedge-cli .
+mv VDL-Linux/bzedged .
+mv VDL-Linux/bzedge-tx .
 
-chmod u+x vidulum-cli
-chmod u+x vidulumd
-chmod u+x vidulum-tx
+chmod u+x bzedge-cli
+chmod u+x bzedged
+chmod u+x bzedge-tx
 
 rm -r VDL-Linux
 
-./vidulumd -daemon=1
+./bzedged -daemon=1
 
 echo "napping again 10s"
 sleep 10
@@ -86,5 +85,5 @@ echo " "
 
 #Trying too hard
 #echo "The next line should be  protocolversion:  170009"
-#./vidulum-cli getnetworkinfo | grep -i 'protocolversion'
+#./bzedge-cli getnetworkinfo | grep -i 'protocolversion'
 echo "Done"
